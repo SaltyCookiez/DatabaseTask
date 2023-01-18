@@ -18,7 +18,5 @@ namespace DatabaseTask.Core.Domain
 
         public int Salary { get; set; }
         public int Phone { get; set; }
-
-        public Project ProjectId { get; set; }
     }
 }

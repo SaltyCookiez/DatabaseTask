@@ -18,7 +18,5 @@ namespace DatabaseTask.Core.Domain
         public int ProjectCost { get; set; }
 
         public DateTime Deadline { get; set; }
-
-        public ConstructionCompany ConstructionCompanyId { get; set; }
     }
 }
