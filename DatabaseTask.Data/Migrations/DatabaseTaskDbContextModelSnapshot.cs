@@ -71,6 +71,9 @@ namespace DatabaseTask.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("ProjectKeyId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Salary")
                         .HasColumnType("int");
 
@@ -80,6 +83,8 @@ namespace DatabaseTask.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProjectKeyId");
+
                     b.ToTable("Employee");
                 });
 
@@ -87,6 +92,9 @@ namespace DatabaseTask.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ConstructionCompanyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Deadline")
@@ -108,6 +116,8 @@ namespace DatabaseTask.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ConstructionCompanyId");
+
                     b.ToTable("Project");
                 });
 
@@ -128,6 +138,9 @@ namespace DatabaseTask.Data.Migrations
                     b.Property<int>("Phone")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("ProjectKeyId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Salary")
                         .HasColumnType("int");
 
@@ -137,7 +150,42 @@ namespace DatabaseTask.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProjectKeyId");
+
                     b.ToTable("Specialist");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Employee", b =>
+                {
+                    b.HasOne("DatabaseTask.Core.Domain.Project", "ProjectKey")
+                        .WithMany()
+                        .HasForeignKey("ProjectKeyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProjectKey");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Project", b =>
+                {
+                    b.HasOne("DatabaseTask.Core.Domain.ConstructionCompany", "ConstructionCompany")
+                        .WithMany()
+                        .HasForeignKey("ConstructionCompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ConstructionCompany");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Specialist", b =>
+                {
+                    b.HasOne("DatabaseTask.Core.Domain.Project", "ProjectKey")
+                        .WithMany()
+                        .HasForeignKey("ProjectKeyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProjectKey");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,6 +11,7 @@ namespace DatabaseTask.Core.Domain
     {
         [Key]
         public Guid Id { get; set; }
+
         public string Task { get; set; }
         public string ProjectName { get; set; }
 
@@ -18,5 +19,7 @@ namespace DatabaseTask.Core.Domain
         public int ProjectCost { get; set; }
 
         public DateTime Deadline { get; set; }
+
+        public ConstructionCompany ConstructionCompany { get; set; }
     }
 }
